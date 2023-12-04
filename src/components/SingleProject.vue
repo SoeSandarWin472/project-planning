@@ -1,5 +1,5 @@
 <template>
- <div class="project" >
+ <div class="project" :class="{complete:project.complete}" >
     <div class="flexing">
     <div ><h3 @click="showDetail=!showDetail"> {{ project.title }}</h3></div>
     <div>
@@ -9,13 +9,13 @@
         <span class="material-symbols-outlined">
         edit
         </span>
-        <span class="material-symbols-outlined">
+        <span class="material-symbols-outlined" @click="updateProject">
         done
         </span>
     </div>
     </div>
      <p v-if="showDetail"> {{ project.detail }}</p>
-    
+    {{ project.complete }}
  </div>
 </template>
 
@@ -36,9 +36,23 @@ export default {
                 this.$emit("delete",this.project.id)
             })
             .catch((err)=>{
-
             })
            
+        },
+        updateProject(){
+            let updateCompleteRoute=this.api+this.project.id;
+            fetch(updateCompleteRoute,{
+                method:"PATCH",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({complete:!this.project.complete})
+                })
+                .then(()=>{
+                    this.$emit("complete",this.project.id)
+                })
+                .catch((err)=>{
+
+                })
+            
         }
     }
 }
@@ -50,6 +64,7 @@ export default {
     background-color: #f2f2f2;
     margin:10px ;  
     border-left: 6px solid crimson;
+    border-radius: 10px;
 }
 h3{
     cursor: pointer;
@@ -66,5 +81,8 @@ span{
 span:hover{
     cursor: pointer;
     color: #777;
+}
+.complete{
+    border-left-color: green;
 }
 </style>
