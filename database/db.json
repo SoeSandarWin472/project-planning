@@ -17,18 +17,6 @@
       "title": "project Three",
       "detail": "project details",
       "complete": true
-    },
-    {
-      "id": 4,
-      "title": "project One",
-      "detail": "project details",
-      "complete": true
-    },
-    {
-      "title": "test",
-      "detail": "dkngksdrngvrsk",
-      "complete": true,
-      "id": 6
     }
   ]
 }
